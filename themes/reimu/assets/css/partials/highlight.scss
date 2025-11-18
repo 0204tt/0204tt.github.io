@@ -135,7 +135,8 @@
   background: linear-gradient(
     to right,
     transparent 0%,
-    var(--highlight-nav) 50%,
+    var(--highlight-nav) 20%,
+    var(--highlight-nav) 80%,
     transparent 100%
   );
   margin-bottom: 10px;
@@ -301,11 +302,13 @@
   }
 
   .gd {
-    background: #ff5e5e80;
+    color: var(--highlight-deletion);
+    background: var(--highlight-deletion-bg);
   }
 
   .gi {
-    background: #5eff667a;
+    color: var(--highlight-addition);
+    background: var(--highlight-addition-bg);
   }
 }
 

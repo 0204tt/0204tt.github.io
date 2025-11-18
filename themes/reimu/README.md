@@ -54,6 +54,7 @@ A Hakurei Reimu style Hugo theme. Migrated from [hexo-theme-reimu](https://githu
   - Twikoo
   - Gitalk
   - Giscus
+  - Disqus
 
 ### 统计与分析
 
@@ -84,13 +85,15 @@ A Hakurei Reimu style Hugo theme. Migrated from [hexo-theme-reimu](https://githu
 - 🎨 图标支持：
   - Iconfont
   - FontAwesome7
-- 🔗 自定义短代码：
+- 🔗 内置短代码：
   - 内部链接
   - 外部链接
   - 友情链接
   - 热力图
   - 标签轮盘
   - Alert块引用
+  - 标签页
+  - 照片墙
 - 🎨 动态适配主题色
 - ©️ 文章版权声明
 - 🌐 自定义 CDN 源 / 本地配置
@@ -521,6 +524,16 @@ gitalk:
   owner: "repo owner"
   admin: "repo owner and collaborators"
   md5: false # 是否使用 md5 加密路径
+```
+
+若基于 [Disqus](https://disqus.com/)  
+请在内层 `params.yml` 中将 `disqus.enable` 改为 `true`，并填入自己的 `shortname`
+
+```yml
+disqus:
+  enable: true
+  shortname: "your shortname"
+  count: true # 是否启用评论数量统计
 ```
 
 </details>
@@ -975,13 +988,13 @@ triangle_badge:
 </details>
 
 <details>
-<summary>内置卡片shortcode</summary>
+<summary>内置shortcode</summary>
 
-### 内置卡片shortcode
+### 内置shortcode
 
 #### friendLink 友链卡片
 
-```yaml
+```markdown
 {{< friendsLink >}}
 ```
 
@@ -989,7 +1002,7 @@ triangle_badge:
 
 #### postLinkCard 内链卡片
 
-```yaml
+```markdown
 {{<postLinkCard path="?" cover="?" escape="?" >}}
 ```
 
@@ -997,7 +1010,7 @@ triangle_badge:
 
 #### externalLinkCard 外链卡片
 
-```yaml
+```markdown
 {{<externalLinkCard title="?" link="?" cover="?">}}
 ```
 
@@ -1005,7 +1018,7 @@ triangle_badge:
 
 #### heatMapCard 文章热力图 (v0.8.0+)
 
-```yaml
+```markdown
 {{< heatMapCard levelStandard="?" >}}
 ```
 
@@ -1013,7 +1026,7 @@ triangle_badge:
 
 #### tagRoulette 标签轮盘 (v0.12.0+)
 
-```yaml
+```markdown
 {{< tagRoulette tags="?" icon="?" >}}
 ```
 
@@ -1024,7 +1037,7 @@ tagRoulette 是一个互动元素，提供随机标签展示功能，点击按�
 
 #### alertBlockquote 块引用 (v0.12.1+)
 
-```yaml
+```markdown
 {{< alertBlockquote type="?" >}}
 Your content here
 {{</alertBlockquote>}}
@@ -1033,6 +1046,38 @@ Your content here
 适用于 Hugo v0.132.0 以下版本不能使用 Hugo Blockquote render hooks 的场景。
 
 其中第一个参数为块引用的类型，可选参数为：`note`、`tip`、`important`、`warning`、`danger`
+
+#### tabs 标签页 (v0.14.0+)
+
+```markdown
+{{< tabs [activeTab] ["center"] >}}
+<!-- tabName -->
+Tab content
+<!-- tabName -->
+Tab content
+{{< /tabs >}}
+```
+
+从 next, volantis, stellar 主题借鉴而来，支持在文章中创建标签页切换效果。
+
+- activeTab：可选参数，指定默认激活的标签页下标，从 1 开始计数，默认为 1
+- "center"：可选参数，指定标签页标题居中显示，默认左对齐
+- tabName：每个标签页的标题，必须用 `<!-- tabName -->` 包裹，支持使用 `@` + 图标十六进制代码 展示图标，例：
+  - 标题 `<!-- 标题 -->`
+  - 图标 `<!-- @e60c -->`
+  - 图标+标题 `<!-- 标题@e60c -->` 
+
+#### gallery 照片墙 (v0.14.0+)
+
+```markdown
+{{< gallery >}}
+![alt text](image_url1)
+![alt text](image_url2)
+...
+{{</gallery>}}
+```
+
+将多张图片以照片墙的形式展示出来，支持自动排列和响应式布局。
 
 </details>
 
@@ -1072,40 +1117,46 @@ internal_theme:
     --color-red-6-shadow: "rgba(255, 78, 78, 0.6)"
     --color-red-3-shadow: "rgba(255, 78, 78, 0.3)"
 
-    --highlight-nav: "#e6e6e6"
+    --highlight-nav: "#f5f5f5"
     --highlight-scrollbar: "#d6d6d6"
-    --highlight-background: "#f7f7f7"
-    --highlight-current-line: "#dadada"
-    --highlight-selection: "#e9e9e9"
-    --highlight-foreground: "#4d4d4d"
+    --highlight-background: "#fdfdfd"
+    --highlight-selection: "#e9e9e988"
+    --highlight-foreground: "#24292e"
     --highlight-comment: "#7d7d7d"
-    --highlight-red: "#c8362b"
-    --highlight-orange: "#b66014"
+    --highlight-red: "#d73a49"
+    --highlight-orange: "#e36209"
     --highlight-yellow: "#cb911d"
-    --highlight-green: "#2ea52e"
-    --highlight-aqua: "#479d9d"
-    --highlight-blue: "#1973b8"
-    --highlight-purple: "#7135ac"
+    --highlight-green: "#22863a"
+    --highlight-aqua: "#005cc5"
+    --highlight-blue: "#032f62"
+    --highlight-purple: "#6f42c1"
+    --highlight-deletion: "#b31d28"
+    --highlight-deletion-bg: "#ffeef0"
+    --highlight-addition: "#22863a"
+    --highlight-addition-bg: "#f0fff4"
   dark:
     --red-4: "rgba(255, 208, 208, 0.5)"
     --red-5: "rgba(255,228,228,0.15)"
     --red-5-5: "rgba(255,236,236,0.05)"
     --red-6: "rgba(255, 243, 243, 0.2)"
 
-    --highlight-nav: "#2e353f"
+    --highlight-nav: "#222830"
     --highlight-scrollbar: "#454d59"
-    --highlight-background: "#22272e"
-    --highlight-current-line: "#393939"
-    --highlight-selection: "#515151"
-    --highlight-foreground: "#cccccc"
-    --highlight-comment: "#999999"
-    --highlight-red: "#f47067"
-    --highlight-orange: "#f69d50"
+    --highlight-background: "#1e2027"
+    --highlight-selection: "#51515155"
+    --highlight-foreground: "#c9d1d9"
+    --highlight-comment: "#8b949e"
+    --highlight-red: "#ff7b72"
+    --highlight-orange: "#ffa657"
     --highlight-yellow: "#ffcc66"
-    --highlight-green: "#99cc99"
-    --highlight-aqua: "#66cccc"
-    --highlight-blue: "#54b6ff"
-    --highlight-purple: "#dcbdfb"
+    --highlight-green: "#7ee787"
+    --highlight-aqua: "#a5d6ff"
+    --highlight-blue: "#79c0ff"
+    --highlight-purple: "#d2a8ff"
+    --highlight-deletion: "#ffa198"
+    --highlight-deletion-bg: "#490202"
+    --highlight-addition: "#7ee787"
+    --highlight-addition-bg: "#04260f"
 ```
 
 #### 自定义字体

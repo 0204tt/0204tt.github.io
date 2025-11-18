@@ -158,7 +158,8 @@
       .post-link-card a,
       .friend-item-wrap a,
       :has(code),
-      a.article-gallery-item
+      a.article-gallery-item,
+      .nav-tabs a
     ),
   .code-figcaption-bottom.has-link a {
     &::after {
@@ -213,6 +214,7 @@
     height: auto;
     display: block;
     margin: auto;
+    border-radius: $post-radius;
   }
 
   img.lazyloaded {
@@ -222,6 +224,7 @@
 
   iframe {
     border: none;
+    border-radius: $post-radius;
   }
 
   table {

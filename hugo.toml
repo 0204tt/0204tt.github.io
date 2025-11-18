@@ -1,0 +1,4 @@
+baseURL = "https://0204tt.github.io/"
+languageCode = "zh-cn"
+title = "0204tt"
+theme = "reimu"

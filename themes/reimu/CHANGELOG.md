@@ -1,3 +1,79 @@
+## 0.14.0
+
+未发布
+
+### 特性
+
+- 新增 [Disqus](https://disqus.com/) 评论系统支持
+  ```yml
+  disqus:
+    enable: true
+    shortname: "your shortname"
+    count: true # 是否启用评论数量统计
+  ```
+- 新增 Tabs 短代码，从 next, volantis, stellar 主题借鉴而来，支持在文章中创建标签页切换效果。
+  ```markdown
+  {{< tabs [activeTab] ["center"] >}}
+  <!-- tabName -->
+  Tab content
+  <!-- tabName -->
+  Tab content
+  {{< /tabs >}}
+  ```
+  - activeTab：可选参数，指定默认激活的标签页下标，从 1 开始计数，默认为 1
+  - "center"：可选参数，指定标签页标题居中显示，默认左对齐
+  - tabName：每个标签页的标题，必须用 `<!-- tabName -->` 包裹，支持使用 `@` + 图标十六进制代码 展示图标，例：
+    - 标题 `<!-- 标题 -->`
+    - 图标 `<!-- @e60c -->`
+    - 图标+标题 `<!-- 标题@e60c -->`
+- 新增 Gallery 短代码，将多张图片以照片墙的形式展示出来，支持自动排列和响应式布局。
+  ```markdown
+  {{< gallery >}}
+  ![alt text](image_url1)
+  ![alt text](image_url2)
+  ...
+  {{</gallery>}}
+  ```
+- 优化代码块的样式，现在使用了 Github Theme 的配色方案
+
+---
+
+Unreleased
+
+### Features
+
+- Added support for the [Disqus](https://disqus.com/) comment system
+  ```yml
+  disqus:
+    enable: true
+    shortname: "your shortname"
+    count: true # Enable comment count display
+  ```
+- Added the Tabs shortcode, inspired by the next, volantis, and stellar themes, which supports creating tabbed content switches within articles.
+  ```markdown
+  {{< tabs [activeTab] ["center"] >}}
+  <!-- tabName -->
+  Tab content
+  <!-- tabName -->
+  Tab content
+  {{< /tabs >}}
+  ```
+  - activeTab: Optional parameter, specifies the index of the default active tab (counting starts from 1). Default is 1.
+  - "center": Optional parameter, specifies center alignment for tab titles. Default is left-aligned.
+  - tabName: The title of each tab, must be wrapped in `<!-- tabName -->`. Supports displaying icons using `@` + the icon's hexadecimal code. Example:
+    - Title: `<!-- Title -->`
+    - Icon: `<!-- @e60c -->`
+    - Icon + Title: `<!-- Title@e60c -->`
+- Added the Gallery shortcode, which displays multiple images in a photo wall format, supporting automatic arrangement and responsive layout.
+  ```markdown
+  {{< gallery >}}
+  ![alt text](image_url1)
+  ![alt text](image_url2)
+  ...
+  {{</gallery>}}
+  ```
+- Optimized the code block styling, now using the Github Theme color scheme.
+
 ## v0.13.4
 
 **2025-11-01**

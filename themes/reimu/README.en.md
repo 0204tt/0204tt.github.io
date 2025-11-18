@@ -54,6 +54,7 @@ A Hakurei Reimu style Hugo theme. Migrated from [hexo-theme-reimu](https://githu
   - Twikoo
   - Gitalk
   - Giscus
+  - Disqus
 
 ### Statistics & Analytics
 
@@ -84,13 +85,15 @@ A Hakurei Reimu style Hugo theme. Migrated from [hexo-theme-reimu](https://githu
 - 🎨 Icon support:
   - Iconfont
   - FontAwesome7
-- 🔗 Custom shortcodes for:
+- 🔗 Built-in shortcodes:
   - Internal links
   - External links
   - Friend links
   - Heatmap
   - Tag Roulette
   - Alert Blockquote
+  - Tabs
+  - Gallery
 - 🎨 Dynamic theme color adaptation
 - ©️ Article copyright declaration
 - 🌐 Custom CDN source / local source configuration
@@ -509,6 +512,16 @@ gitalk:
   owner: "repo owner"
   admin: "repo owner and collaborators"
   md5: false # Whether to use md5 to encrypt the path
+```
+
+If using [Disqus](https://disqus.com/)  
+Please set `disqus.enable` to `true` in the inner `params.yml`, and fill in your `shortname`
+
+```yml
+disqus:
+  enable: true
+  shortname: "your shortname"
+  count: true # Whether to enable comment count statistics
 ```
 
 </details>
@@ -952,13 +965,13 @@ triangle_badge:
 </details>
 
 <details>
-<summary>Built-in Card Shortcodes</summary>
+<summary>Built-in Shortcodes</summary>
 
-### Built-in Card Shortcodes
+### Built-in Shortcodes
 
 #### friendLink Card
 
-```yaml
+```markdown
 {{< friendsLink >}}
 ```
 
@@ -966,7 +979,7 @@ No parameters, directly reads from the `data/friends.yml` file
 
 #### postLinkCard - Internal Link Card
 
-```yaml
+```markdown
 {{<postLinkCard path="?" cover="?" escape="?" >}}
 ```
 
@@ -974,7 +987,7 @@ The first parameter is the article's `path`; the second parameter (optional) is 
 
 #### externalLinkCard - External Link Card
 
-```yaml
+```markdown
 {{<externalLinkCard title="?" link="?" cover="?">}}
 ```
 
@@ -982,7 +995,7 @@ The first parameter is the article's title; the second parameter is the external
 
 #### Heat Map Card Article Heatmap (v0.8.0+)
 
-```yaml
+```markdown
 {{< heatMapCard levelStandard="?" >}}
 ```
 
@@ -990,7 +1003,7 @@ The first parameter is the level standard for the heatmap (graded based on the w
 
 #### tagRoulette (v0.12.0+)
 
-```yaml
+```markdown
 {{< tagRoulette tags="?" icon="?" >}}
 ```
 
@@ -1001,7 +1014,7 @@ tagRoulette is an interactive element that provides a random tag display feature
 
 #### alertBlockquote (v0.12.1+)
 
-```yaml
+```markdown
 {{< alertBlockquote type="?" >}}
 Your content here
 {{</alertBlockquote>}}
@@ -1010,6 +1023,37 @@ Your content here
 It is applicable to scenarios where Hugo v0.132.0 or lower cannot use Hugo Blockquote render hooks.
 
 The first parameter is the type of block quote, with the following optional parameters: `note`, `tip`, `important`, `warning`, `danger`
+
+#### tabs (v0.14.0+)
+
+```markdown
+{{< tabs [activeTab] ["center"] >}}
+<!-- tabName -->
+Tab content
+<!-- tabName -->
+Tab content
+{{< /tabs >}}
+```
+
+Adapted from the next, volantis, and stellar themes, this feature supports creating tabbed switching effects within articles.
+
+- activeTab: Optional parameter, specifies the default active tab index (counting starts from 1). Default is 1.
+- "center": Optional parameter, specifies that tab titles should be center-aligned. Default is left-aligned.
+- tabName: The title of each tab, must be wrapped in `<!-- tabName -->`. Supports displaying icons using `@` + icon hexadecimal code. Examples:
+  - Title only: `<!-- Title -->`
+  - Icon only: `<!-- @e60c -->`
+  - Icon + Title: `<!-- Title@e60c -->`
+
+#### Gallery Photo Wall (v0.14.0+)
+
+```markdown
+{{< gallery >}}
+![alt text](image_url1)
+![alt text](image_url2)
+...
+{{</gallery>}}
+
+Display multiple images in a photo wall format, supporting automatic arrangement and responsive layout.
 
 </details>
 
@@ -1049,40 +1093,46 @@ internal_theme:
     --color-red-6-shadow: "rgba(255, 78, 78, 0.6)"
     --color-red-3-shadow: "rgba(255, 78, 78, 0.3)"
 
-    --highlight-nav: "#e6e6e6"
+    --highlight-nav: "#f5f5f5"
     --highlight-scrollbar: "#d6d6d6"
-    --highlight-background: "#f7f7f7"
-    --highlight-current-line: "#dadada"
-    --highlight-selection: "#e9e9e9"
-    --highlight-foreground: "#4d4d4d"
+    --highlight-background: "#fdfdfd"
+    --highlight-selection: "#e9e9e988"
+    --highlight-foreground: "#24292e"
     --highlight-comment: "#7d7d7d"
-    --highlight-red: "#c8362b"
-    --highlight-orange: "#b66014"
+    --highlight-red: "#d73a49"
+    --highlight-orange: "#e36209"
     --highlight-yellow: "#cb911d"
-    --highlight-green: "#2ea52e"
-    --highlight-aqua: "#479d9d"
-    --highlight-blue: "#1973b8"
-    --highlight-purple: "#7135ac"
+    --highlight-green: "#22863a"
+    --highlight-aqua: "#005cc5"
+    --highlight-blue: "#032f62"
+    --highlight-purple: "#6f42c1"
+    --highlight-deletion: "#b31d28"
+    --highlight-deletion-bg: "#ffeef0"
+    --highlight-addition: "#22863a"
+    --highlight-addition-bg: "#f0fff4"
   dark:
     --red-4: "rgba(255, 208, 208, 0.5)"
     --red-5: "rgba(255,228,228,0.15)"
     --red-5-5: "rgba(255,236,236,0.05)"
     --red-6: "rgba(255, 243, 243, 0.2)"
 
-    --highlight-nav: "#2e353f"
+    --highlight-nav: "#222830"
     --highlight-scrollbar: "#454d59"
-    --highlight-background: "#22272e"
-    --highlight-current-line: "#393939"
-    --highlight-selection: "#515151"
-    --highlight-foreground: "#cccccc"
-    --highlight-comment: "#999999"
-    --highlight-red: "#f47067"
-    --highlight-orange: "#f69d50"
+    --highlight-background: "#1e2027"
+    --highlight-selection: "#51515155"
+    --highlight-foreground: "#c9d1d9"
+    --highlight-comment: "#8b949e"
+    --highlight-red: "#ff7b72"
+    --highlight-orange: "#ffa657"
     --highlight-yellow: "#ffcc66"
-    --highlight-green: "#99cc99"
-    --highlight-aqua: "#66cccc"
-    --highlight-blue: "#54b6ff"
-    --highlight-purple: "#dcbdfb"
+    --highlight-green: "#7ee787"
+    --highlight-aqua: "#a5d6ff"
+    --highlight-blue: "#79c0ff"
+    --highlight-purple: "#d2a8ff"
+    --highlight-deletion: "#ffa198"
+    --highlight-deletion-bg: "#490202"
+    --highlight-addition: "#7ee787"
+    --highlight-addition-bg: "#04260f"
 ```
 
 #### Customize theme font
