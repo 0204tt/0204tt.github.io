@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 0204tt</title>
+    <link>https://0204tt.github.io/tags/</link>
+    <description>Recent content from 0204tt</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    
+    <managingEditor>xxx@example.com (D-Sketon)</managingEditor>
+    <webMaster>xxx@example.com (D-Sketon)</webMaster>
+    
+    <copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright>
+    
+    
+    <atom:link href="https://0204tt.github.io/tags/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+  </channel>
+</rss>
